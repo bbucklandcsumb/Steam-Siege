@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour , IDamagable
 {
     private NavMeshAgent agent;
+
+    public int healthPoints = 4;
+
+    [Header("Movement")]
     [SerializeField] private float turnSpeed = 10;
     [SerializeField] private Transform[] waypoints;
     private int waypointIndex;
@@ -58,5 +62,13 @@ public class Enemy : MonoBehaviour
         waypointIndex++;
 
         return targetPoint;
+    }
+
+    public void TakeDamage(int damage)
+    {
+        healthPoints -= damage;
+
+        if (healthPoints <= 0)
+            Destroy(gameObject);
     }
 }
