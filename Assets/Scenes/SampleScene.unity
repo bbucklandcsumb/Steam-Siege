@@ -3312,7 +3312,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1516004418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3327,7 +3327,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentWave:
     basicEnemy: 100
-    fastEnemy: 0
+    fastEnemy: 20
   respawn: {fileID: 1793627031600925306}
   spawnCooldown: 2
   basicEnemy: {fileID: 1005869252812271471, guid: d3165fa48b577624ca805d75ec16d110,

@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Enemy : MonoBehaviour , IDamagable
+public enum EnemyType {Basic, Fast, None}
+
+public class Enemy : MonoBehaviour, IDamagable
 {
     private NavMeshAgent agent;
 
+    [SerializeField] private EnemyType enemyType;
+    [SerializeField] private Transform centerPoint;
     public int healthPoints = 4;
 
     [Header("Movement")]
@@ -87,6 +91,10 @@ public class Enemy : MonoBehaviour , IDamagable
 
         return targetPoint;
     }
+
+    public Vector3 CenterPoint() => centerPoint.position;
+
+    public EnemyType GetEnemyType() => enemyType;
 
     public void TakeDamage(int damage)
     {
