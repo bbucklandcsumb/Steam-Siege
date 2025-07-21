@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TileSlotEditor : MonoBehaviour
+public class EnemyPortal : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
