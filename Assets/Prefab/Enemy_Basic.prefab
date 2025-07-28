@@ -150,6 +150,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfa5eedc31d420449bb87cd3adc938f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  visuals: {fileID: 7965896916351701717}
+  wahtIsGround:
+    serializedVersion: 2
+    m_Bits: 64
+  verticalRotationSpeed: 5
 --- !u!195 &7823284254658801147
 NavMeshAgent:
   m_ObjectHideFlags: 0

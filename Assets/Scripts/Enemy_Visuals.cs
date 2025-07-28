@@ -8,6 +8,11 @@ public class Enemy_Visuals : MonoBehaviour
     [SerializeField] private LayerMask wahtIsGround;
     [SerializeField] private float verticalRotationSpeed;
 
+    void Update()
+    {
+        AlignWithSlope();
+    }
+
     private void AlignWithSlope()
     {
         if (visuals == null)
@@ -16,6 +21,7 @@ public class Enemy_Visuals : MonoBehaviour
         if (Physics.Raycast(visuals.position, Vector3.down, out RaycastHit hit, Mathf.Infinity, wahtIsGround))
         {
             Quaternion targetRotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
+            visuals.rotation = Quaternion.Slerp(visuals.rotation, targetRotation, Time.deltaTime * verticalRotationSpeed);
         }
     }
 }
