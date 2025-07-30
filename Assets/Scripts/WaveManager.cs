@@ -13,6 +13,7 @@ public class WaveDetails
 
 public class WaveManager : MonoBehaviour
 {
+    private UI_InGame inGameUI;
     [SerializeField] private GridBuilder currentGrid;
     public bool waveCompleted;
 
@@ -34,6 +35,7 @@ public class WaveManager : MonoBehaviour
     void Awake()
     {
         enemyPortals = new List<EnemyPortal>(FindObjectsOfType<EnemyPortal>());
+        inGameUI = FindFirstObjectByType<UI_InGame>(FindObjectsInactive.Include);
     }
 
     void Start()
@@ -53,12 +55,14 @@ public class WaveManager : MonoBehaviour
             return;
 
         if (waveCompleted == false && AllEnemiesDefeated())
-            {
-                CheckForNewLevelLayout();
+        {
+            CheckForNewLevelLayout();
 
-                waveCompleted = true;
-                waveTimer = timeBetweenWaves;
-            }
+            waveCompleted = true;
+            waveTimer = timeBetweenWaves;
+            inGameUI.EnableWaveTimer(true);
+
+        }
     }
 
     private void HandleWaveTiming()
@@ -66,9 +70,13 @@ public class WaveManager : MonoBehaviour
         if (waveCompleted)
         {
             waveTimer -= Time.deltaTime;
+            inGameUI.UpdateWaveTimerUI(waveTimer);
 
             if (waveTimer <= 0)
+            {
+                inGameUI.EnableWaveTimer(false);
                 SetupNextWave();
+            }
         }
     }
 
@@ -80,6 +88,7 @@ public class WaveManager : MonoBehaviour
             return;
         }
 
+        inGameUI.EnableWaveTimer(false);
         SetupNextWave();
     }
 
@@ -180,7 +189,7 @@ public class WaveManager : MonoBehaviour
         }
     }
 
-        private void EnableNewPortals(EnemyPortal[] newPortals)
+    private void EnableNewPortals(EnemyPortal[] newPortals)
     {
         foreach (EnemyPortal portal in newPortals)
         {
