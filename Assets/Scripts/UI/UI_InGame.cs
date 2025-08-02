@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -25,11 +23,15 @@ public class UI_InGame : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.F10))
         {
             ui.SwitchTo(pauseUI.gameObject);
         }
     }
+
+    public void ShakeCurrencyUI() => ui.uiAnim.Shake(currencyText.transform.parent as RectTransform);
+    public void ShakeHealthPointsUI() => ui.uiAnim.Shake(healthPointsText.transform.parent as RectTransform);
+
 
 
     public void UpdateHealthPointsUI(int value, int maxValue)

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,13 +7,17 @@ public class UI : MonoBehaviour
     [SerializeField] private Image fadeImageUI;
     [SerializeField] private GameObject[] uiElements;
 
-    private UI_Animator uiAnim;
     private UI_Settings settingsUI;
     private UI_MainMenu mainMenuUI;
-    private UI_InGame inGameUI;
+
+    public UI_InGame inGameUI { get; private set; }
+    public UI_Animator uiAnim { get; private set; }
+
+    public UI_BuildButtonsHolder buildButtonsUI { get; private set; }
 
     void Awake()
     {
+        buildButtonsUI = GetComponentInChildren<UI_BuildButtonsHolder>(true);
         settingsUI = GetComponentInChildren<UI_Settings>(true);
         mainMenuUI = GetComponentInChildren<UI_MainMenu>(true);
         inGameUI = GetComponentInChildren<UI_InGame>(true);

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -20,6 +21,7 @@ public class GameManager : MonoBehaviour
     {
         currentHp = maxHp;
         inGameUI.UpdateHealthPointsUI(currentHp, maxHp);
+        inGameUI.UpdateCurrencyUI(currency);
 
     }
 
@@ -27,11 +29,24 @@ public class GameManager : MonoBehaviour
     {
         currentHp += value;
         inGameUI.UpdateHealthPointsUI(currentHp, maxHp);
+        inGameUI.ShakeHealthPointsUI();
     }
 
     public void UpdateCurrency(int value)
     {
         currency += value;
         inGameUI.UpdateCurrencyUI(currency);
+    }
+
+    public bool HasEnoughCurrency(int price)
+    {
+        if (price < currency)
+        {
+            currency -= price;
+            inGameUI.UpdateCurrencyUI(currency);
+            return true;        
+        }
+
+        return false;
     }
 }

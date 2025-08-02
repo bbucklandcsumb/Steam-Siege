@@ -31,12 +31,6 @@ public class CameraEffects : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-            SwitchToMenuView();
-
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-            SwitchToGameView();
-
         if (Input.GetKeyDown(KeyCode.V))
             Screenshake(shakeDuration, shakeMagnitude);
     }

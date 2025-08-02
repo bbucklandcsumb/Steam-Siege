@@ -22,8 +22,7 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private WaveDetails[] levelWaves;
     private int waveIndex;
 
-    private float checkInterval = .5f;
-    private float nextCheckTime;
+
 
 
     [Header("Enemy Prefabs")]
@@ -45,14 +44,13 @@ public class WaveManager : MonoBehaviour
 
     void Update()
     {
-        HandleWaveCompletion();
         HandleWaveTiming();
     }
 
+    public WaveDetails[] GetLevelWaves() => levelWaves;
+
     private void HandleWaveCompletion()
     {
-        if (ReadyToCheck() == false)
-            return;
 
         if (waveCompleted == false && AllEnemiesDefeated())
         {
@@ -208,14 +206,5 @@ public class WaveManager : MonoBehaviour
         return true;
     }
 
-    private bool ReadyToCheck()
-    {
-        if (Time.time >= nextCheckTime)
-        {
-            nextCheckTime = Time.time + checkInterval;
-            return true;
-        }
 
-        return false;
-    }
 }
