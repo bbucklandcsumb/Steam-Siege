@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,29 +9,31 @@ public class BuildManager : MonoBehaviour
     public WaveManager waveManager;
     public GridBuilder currentGrid;
 
+
     [Header("Build Materials")]
     [SerializeField] private Material attackRadiusMat;
     [SerializeField] private Material buildPreviewMat;
 
     private bool isMouseOverUI;
 
-    void Awake()
+    private void Awake()
     {
         ui = FindFirstObjectByType<UI>();
 
-        MakeBuildSlotNotAvailableIfNeeded(waveManager, currentGrid);
+        MakeBuildSlotNotAvalibleIfNeeded(waveManager,currentGrid);
     }
 
-    void Update()
+    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
             CancelBuildAction();
+
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             if (isMouseOverUI)
                 return;
-                
+
             if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit))
             {
                 bool clickedNotOnBuildSlot = hit.collider.GetComponent<BuildSlot>() == null;
@@ -40,14 +41,19 @@ public class BuildManager : MonoBehaviour
                 if (clickedNotOnBuildSlot)
                     CancelBuildAction();
             }
-
         }
     }
 
     public void MouseOverUI(bool isOverUI) => isMouseOverUI = isOverUI;
 
-    public void MakeBuildSlotNotAvailableIfNeeded(WaveManager waveManager, GridBuilder currentGrid)
+    public void MakeBuildSlotNotAvalibleIfNeeded(WaveManager waveManager, GridBuilder currentGrid)
     {
+        if (waveManager == null)
+        {
+            Debug.Log("No Wave Manager Assigned!");
+            return;
+        }
+
         foreach (var wave in waveManager.GetLevelWaves())
         {
             if (wave.nextGrid == null)
@@ -71,7 +77,7 @@ public class BuildManager : MonoBehaviour
                 BuildSlot buildSlot = grid[i].GetComponent<BuildSlot>();
 
                 if (buildSlot != null)
-                    buildSlot.SetSlotAvailableTo(false);
+                    buildSlot.SetSlotAvalibleTo(false);
             }
 
         }
@@ -81,13 +87,12 @@ public class BuildManager : MonoBehaviour
     {
         if (selectedBuildSlot == null)
             return;
-
+    
         ui.buildButtonsUI.GetLastSelectedButton()?.SelectButton(false);
-        
+
         selectedBuildSlot.UnselectTile();
         selectedBuildSlot = null;
-        DisableBuildMenus();
-
+        DisableBuildMenu();
     }
 
     public void SelectBuildSlot(BuildSlot newSlot)
@@ -95,11 +100,10 @@ public class BuildManager : MonoBehaviour
         if (selectedBuildSlot != null)
             selectedBuildSlot.UnselectTile();
 
-
         selectedBuildSlot = newSlot;
     }
 
-    public void EnableBuildMenus()
+    public void EnableBuildMenu()
     {
         if (selectedBuildSlot != null)
             return;
@@ -107,7 +111,7 @@ public class BuildManager : MonoBehaviour
         ui.buildButtonsUI.ShowBuildButtons(true);
     }
 
-    private void DisableBuildMenus()
+    private void DisableBuildMenu()
     {
         ui.buildButtonsUI.ShowBuildButtons(false);
     }

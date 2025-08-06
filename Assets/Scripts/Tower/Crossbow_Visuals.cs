@@ -9,16 +9,18 @@ public class Crossbow_Visuals : MonoBehaviour
     [SerializeField] private LineRenderer attackVisuals;
     [SerializeField] private float attackVisualDuration = .1f;
 
+
     [Header("Glowing Visuals")]
     [SerializeField] private MeshRenderer meshRenderer;
     private Material material;
 
     [Space]
-    private float currentIntensity;
     [SerializeField] private float maxIntensity = 150;
+    private float currentIntensity;
     [Space]
     [SerializeField] private Color startColor;
     [SerializeField] private Color endColor;
+
 
     [Header("Rotor Visuals")]
     [SerializeField] private Transform rotor;
@@ -36,13 +38,11 @@ public class Crossbow_Visuals : MonoBehaviour
     [SerializeField] private Transform frontEndPoint_L;
     [SerializeField] private Transform frontEndPoint_R;
 
-
     [Header("Back Glow String")]
     [SerializeField] private LineRenderer backString_L;
     [SerializeField] private LineRenderer backString_R;
 
     [Space]
-
     [SerializeField] private Transform backStartPoint_L;
     [SerializeField] private Transform backStartPoint_R;
     [SerializeField] private Transform backEndPoint_L;
@@ -50,13 +50,11 @@ public class Crossbow_Visuals : MonoBehaviour
 
     [SerializeField] private LineRenderer[] lineRenderers;
 
-
-
     private void Awake()
     {
         material = new Material(meshRenderer.material);
         meshRenderer.material = material;
-        
+
         UpdateMaterialsOnLineRenderers();
         StartCoroutine(ChangeEmission(1));
     }
@@ -84,20 +82,22 @@ public class Crossbow_Visuals : MonoBehaviour
 
     private void UpdateStrings()
     {
-        UpdateStringVisuals(frontString_L, frontStartPoint_L, frontEndPoint_L);
-        UpdateStringVisuals(frontString_R, frontStartPoint_R, frontEndPoint_R);
-        UpdateStringVisuals(backString_L, backStartPoint_L, backEndPoint_L);
-        UpdateStringVisuals(backString_R, backStartPoint_R, backEndPoint_R);
+        UpdateStringVisual(frontString_L, frontStartPoint_L, frontEndPoint_L);
+        UpdateStringVisual(frontString_R, frontStartPoint_R, frontEndPoint_R);
+        UpdateStringVisual(backString_L, backStartPoint_L, backEndPoint_L);
+        UpdateStringVisual(backString_R, backStartPoint_R, backEndPoint_R);
     }
 
     private void UpdateEmissionColor()
     {
         Color emissionColor = Color.Lerp(startColor, endColor, currentIntensity / maxIntensity);
+
         emissionColor = emissionColor * Mathf.LinearToGammaSpace(currentIntensity);
+
         material.SetColor("_EmissionColor", emissionColor);
     }
 
-    public void PlayReloadVFX(float duration)
+    public void PlayReloaxVFX(float duration)
     {
         float newDuration = duration / 2;
 
@@ -107,10 +107,10 @@ public class Crossbow_Visuals : MonoBehaviour
 
     public void PlayAttackVFX(Vector3 startPoint, Vector3 endPoint, Enemy newEnemy)
     {
-        StartCoroutine(VFXCoroutine(startPoint, endPoint, newEnemy));
+        StartCoroutine(VFXCoroutione(startPoint,endPoint,newEnemy));
     }
 
-    private IEnumerator VFXCoroutine(Vector3 startPoint, Vector3 endPoint, Enemy newEnemy)
+    private IEnumerator VFXCoroutione(Vector3 startPoint, Vector3 endPoint,Enemy newEnemy)
     {
         myEnemy = newEnemy;
 
@@ -124,13 +124,13 @@ public class Crossbow_Visuals : MonoBehaviour
 
     private IEnumerator ChangeEmission(float duration)
     {
-        float startTime = Time.time;
+        float startTime = Time.time; 
         float startIntensity = 0;
 
-
-        while (Time.time - startTime < duration)
+        // Do something repeatedly until the duration has passed
+        while (Time.time - startTime < duration) 
         {
-            // Calculates proportion of duration that has passed since start of coroutine
+            // Calculates the proportion of the duration that has elapsed since the start of the coroutine.
             float tValue = (Time.time - startTime) / duration;
             currentIntensity = Mathf.Lerp(startIntensity, maxIntensity, tValue);
             yield return null;
@@ -153,9 +153,9 @@ public class Crossbow_Visuals : MonoBehaviour
         rotor.position = rotorLoaded.position;
     }
 
-    private void UpdateStringVisuals(LineRenderer lineRenderer, Transform startPoint, Transform endPoint)
+    private void UpdateStringVisual(LineRenderer lineRenderer, Transform startPoint, Transform endPoint)
     {
         lineRenderer.SetPosition(0, startPoint.position);
-        lineRenderer.SetPosition(1, endPoint.position);
+        lineRenderer.SetPosition(1,endPoint.position);
     }
 }

@@ -1,24 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class BuildSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
 {
-
     private UI ui;
     private TileAnimator tileAnim;
     private BuildManager buildManager;
     private Vector3 defaultPosition;
 
     private bool tileCanBeMoved = true;
-    public bool buildSlotAvailable = true;
+    private bool buildSlotAvalible = true;
 
-    public Coroutine currentMovementUpCo;
-    public Coroutine moveToDefaultCo;
+    private Coroutine currentMovementUpCo;
+    private Coroutine moveToDefaultCo;
 
-    void Awake()
+    
+
+    private void Awake()
     {
         ui = FindFirstObjectByType<UI>();
         tileAnim = FindFirstObjectByType<TileAnimator>();
@@ -28,16 +28,15 @@ public class BuildSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     private void Start()
     {
-        if (buildSlotAvailable == false)
-            transform.position += new Vector3(0, 0.1f);
+        if (buildSlotAvalible == false)
+            transform.position += new Vector3(0, .1f);
     }
 
-
-    public void SetSlotAvailableTo(bool value) => buildSlotAvailable = value;
+    public void SetSlotAvalibleTo(bool value) => buildSlotAvalible = value;
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (buildSlotAvailable == false)
+        if (buildSlotAvalible == false || tileAnim.IsGridMoving())
             return;
 
         if (eventData.button != PointerEventData.InputButton.Left)
@@ -46,7 +45,7 @@ public class BuildSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         if (buildManager.GetSelectedSlot() == this)
             return;
 
-        buildManager.EnableBuildMenus();
+        buildManager.EnableBuildMenu();
         buildManager.SelectBuildSlot(this);
         MoveTileUp();
 
@@ -57,26 +56,22 @@ public class BuildSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (buildSlotAvailable == false)
+        if (buildSlotAvalible == false || tileAnim.IsGridMoving())
             return;
 
-
-        if (Input.GetKey(KeyCode.Mouse1) || Input.GetKey(KeyCode.Mouse2))
+        if (tileCanBeMoved == false)
             return;
-
-
-        if (!tileCanBeMoved) return;
 
         MoveTileUp();
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-
-        if (buildSlotAvailable == false)
+        if (buildSlotAvalible == false || tileAnim.IsGridMoving())
             return;
 
-        if (!tileCanBeMoved) return;
+        if (tileCanBeMoved == false)
+            return;
 
         if (currentMovementUpCo != null)
         {
@@ -94,23 +89,20 @@ public class BuildSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     private void MoveTileUp()
     {
-        Vector3 targetPosition = transform.position + new Vector3(0, tileAnim.GetBuildSlotYOffset(), 0);
+        Vector3 targetPosition = transform.position + new Vector3(0, tileAnim.GetBuildOffset(), 0);
         currentMovementUpCo = StartCoroutine(tileAnim.MoveTileCo(transform, targetPosition));
     }
-
     private void MoveToDefaultPosition()
     {
         moveToDefaultCo = StartCoroutine(tileAnim.MoveTileCo(transform, defaultPosition));
     }
-
-    public void SnapToDefaultPositionImmediately()
+    public void SnapToDefaultPositionImmidiatly()
     {
-        if (moveToDefaultCo != null)
+        if(moveToDefaultCo != null)
             StopCoroutine(moveToDefaultCo);
 
         transform.position = defaultPosition;
     }
 
     public Vector3 GetBuildPosition(float yOffset) => defaultPosition + new Vector3(0, yOffset);
-
 }

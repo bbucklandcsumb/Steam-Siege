@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -15,6 +14,7 @@ public class UI_Button : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     private Coroutine scaleCoroutine;
     [Space]
     [SerializeField] private UI_TextBlinkEffect myTextBlinkEffect;
+
     private void Awake()
     {
         uiAnim = GetComponentInParent<UI_Animator>();
@@ -23,24 +23,23 @@ public class UI_Button : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (scaleCoroutine != null)
+        if(scaleCoroutine != null)
             StopCoroutine(scaleCoroutine);
 
+        scaleCoroutine = StartCoroutine(uiAnim.ChangeScaleCo(myRect,showcaseScale,scaleUpDuration));
 
-        scaleCoroutine = StartCoroutine(uiAnim.ChangeScaleCo(myRect, showcaseScale, scaleUpDuration));
-        
         if (myTextBlinkEffect != null)
             myTextBlinkEffect.EnableBlink(false);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (scaleCoroutine != null)
+        if(scaleCoroutine != null)
             StopCoroutine(scaleCoroutine);
 
-        scaleCoroutine = StartCoroutine(uiAnim.ChangeScaleCo(myRect, 1, scaleUpDuration));
+        scaleCoroutine = StartCoroutine(uiAnim.ChangeScaleCo(myRect,1,scaleUpDuration));
 
-        if (myTextBlinkEffect != null)
+        if(myTextBlinkEffect != null)
             myTextBlinkEffect.EnableBlink(true);
     }
 

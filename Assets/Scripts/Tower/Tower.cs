@@ -18,11 +18,10 @@ public class Tower : MonoBehaviour
     [SerializeField] protected LayerMask whatIsEnemy;
 
     [Space]
-    [Tooltip("Enabling this allows tower to change target between attacks")]
+    [Tooltip("Enabling this allows tower to change target beetwen attacks")]
     [SerializeField] private bool dynamicTargetChange;
     private float targetCheckInterval = .1f;
     private float lastTimeCheckedTarget;
-
 
     protected virtual void Awake()
     {
@@ -47,8 +46,7 @@ public class Tower : MonoBehaviour
         RotateTowardsEnemy();
     }
 
-    public float GetAttackRange() => attackRange;    
-
+    public float GetAttackRange() => attackRange;
     private void LooseTargetIfNeeded()
     {
         if (Vector3.Distance(currentEnemy.CenterPoint(), transform.position) > attackRange)
@@ -69,7 +67,7 @@ public class Tower : MonoBehaviour
 
     protected virtual void Attack()
     {
-
+        //Debug.Log("Attack performed at " + Time.time);
     }
 
     protected bool CanAttack()
@@ -95,16 +93,14 @@ public class Tower : MonoBehaviour
             Enemy newEnemy = enemy.GetComponent<Enemy>();
             EnemyType newEnemyType = newEnemy.GetEnemyType();
 
-            if (newEnemyType == enemyPriorityType)
+            if(newEnemyType == enemyPriorityType)
                 priorityTargets.Add(newEnemy);
             else
                 possibleTargets.Add(newEnemy);
-
-            possibleTargets.Add(newEnemy);
         }
 
         if (priorityTargets.Count > 0)
-           return GetMostAdvancedEnemy(priorityTargets);
+            return GetMostAdvancedEnemy(priorityTargets);
 
         if (possibleTargets.Count > 0)
             return GetMostAdvancedEnemy(possibleTargets);
@@ -142,25 +138,27 @@ public class Tower : MonoBehaviour
             return;
 
         if (currentEnemy == null)
-                return;
+            return;
 
-        // Calculate the vector direction from tower's head to the current enemy.
-        Vector3 directionToEnemy = DirectiontoEnemyFrom(towerHead);
+        // Calculate the vector direction from the tower's head to the current enemy.
+        Vector3 directionToEnemy = DirectionToEnemyFrom(towerHead);
 
-        // Create a Quaternion for the rotation towards the enemy, based on direction vector
+        // Create a Quaternion for the rotation towards the enemy, based on the direction vector.
         Quaternion lookRotation = Quaternion.LookRotation(directionToEnemy);
 
-        // Smoothly rotate between current rotation and desired look rotation
+        // Interpolate smoothly between the current rotation of the tower's head and the desired look rotation.
+        // 'rotationSpeed * Time.deltaTime' adjusts the speed of rotation to be frame-rate independent.
         Vector3 rotation = Quaternion.Lerp(towerHead.rotation, lookRotation, rotationSpeed * Time.deltaTime).eulerAngles;
 
-        // Converts quaternion to euler's angles
+        // Apply the interpolated rotation back to the tower's head. This step converts the Quaternion back to Euler angles for straightforward application.
         towerHead.rotation = Quaternion.Euler(rotation);
     }
 
-    protected Vector3 DirectiontoEnemyFrom(Transform startPoint)
+    protected Vector3 DirectionToEnemyFrom(Transform startPoint)
     {
         return (currentEnemy.CenterPoint() - startPoint.position).normalized;
     }
+
 
     protected virtual void OnDrawGizmos()
     {

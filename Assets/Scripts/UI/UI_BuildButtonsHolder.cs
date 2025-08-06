@@ -5,25 +5,25 @@ using UnityEngine;
 public class UI_BuildButtonsHolder : MonoBehaviour
 {
     private UI_Animator uiAnim;
+
     [SerializeField] private float yPositionOffset;
-    [SerializeField] private float openAnimationDuration = 0.1f;
+    [SerializeField] private float openAnimationDuration = .1f;
     private bool isBuildMenuActive;
 
-    private UI_BuildButtonsOnHoverEffect[] buildButtonsEffects;
+    private UI_BuildButtonOnHoverEffect[] buildButtonEffects;
     private UI_BuildButton[] buildButtons;
 
     private List<UI_BuildButton> unlockedButtons;
     private UI_BuildButton lastSelectedButton;
 
-
-    void Awake()
+    private void Awake()
     {
         uiAnim = GetComponentInParent<UI_Animator>();
-        buildButtonsEffects = GetComponentsInChildren<UI_BuildButtonsOnHoverEffect>();
+        buildButtonEffects = GetComponentsInChildren<UI_BuildButtonOnHoverEffect>();    
         buildButtons = GetComponentsInChildren<UI_BuildButton>();
     }
 
-    void Update()
+    private void Update()
     {
         CheckBuildButtonsHotkeys();
     }
@@ -32,7 +32,7 @@ public class UI_BuildButtonsHolder : MonoBehaviour
     {
         if (isBuildMenuActive == false)
             return;
-            
+
         for (int i = 0; i < unlockedButtons.Count; i++)
         {
             if (Input.GetKeyDown(KeyCode.Alpha1 + i))
@@ -48,6 +48,9 @@ public class UI_BuildButtonsHolder : MonoBehaviour
 
     public void SelectNewButton(int buttonIndex)
     {
+        if (buttonIndex >= unlockedButtons.Count)
+            return;
+
         foreach (var button in unlockedButtons)
         {
             button.SelectButton(false);
@@ -55,25 +58,23 @@ public class UI_BuildButtonsHolder : MonoBehaviour
 
         UI_BuildButton selectedButton = unlockedButtons[buttonIndex];
         selectedButton.SelectButton(true);
-        
     }
 
     public UI_BuildButton[] GetBuildButtons() => buildButtons;
     public List<UI_BuildButton> GetUnlockedButtons() => unlockedButtons;
     public UI_BuildButton GetLastSelectedButton() => lastSelectedButton;
-    public void SetLastSelected(UI_BuildButton newSelectedButton) => lastSelectedButton = newSelectedButton;
 
+    public void SetLastSelected(UI_BuildButton newLastSelected) => lastSelectedButton = newLastSelected;
     public void UpdateUnlockedButtons()
     {
         unlockedButtons = new List<UI_BuildButton>();
 
         foreach (var button in buildButtons)
         {
-            if (button.buttonUnlocked)
+            if(button.buttonUnlocked)
                 unlockedButtons.Add(button);
         }
     }
-
 
     public void ShowBuildButtons(bool showButtons)
     {
@@ -82,16 +83,16 @@ public class UI_BuildButtonsHolder : MonoBehaviour
         float yOffset = isBuildMenuActive ? yPositionOffset : -yPositionOffset;
         float methodDelay = isBuildMenuActive ? openAnimationDuration : 0;
 
-        uiAnim.ChangePosition(transform, new Vector3(0, yOffset), openAnimationDuration);
+        uiAnim.ChangePosition(transform, new Vector3(0,yOffset), openAnimationDuration);
         Invoke(nameof(ToggleButtonMovement), methodDelay);
-
     }
-
+    
     private void ToggleButtonMovement()
     {
-        foreach (var button in buildButtonsEffects)
+        foreach (var button in buildButtonEffects)
         {
             button.ToggleMovement(isBuildMenuActive);
         }
     }
+
 }

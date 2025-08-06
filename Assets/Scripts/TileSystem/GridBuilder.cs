@@ -7,15 +7,30 @@ public class GridBuilder : MonoBehaviour
 {
     private NavMeshSurface myNavMesh => GetComponent<NavMeshSurface>();
     [SerializeField] private GameObject mainPrefab;
+
     [SerializeField] private int gridLength = 10;
     [SerializeField] private int gridWidth = 10;
-    [SerializeField] private List<GameObject> createdTiles = new List<GameObject>();
+
+    [SerializeField] private List<GameObject> createdTiles;
 
     public List<GameObject> GetTileSetup() => createdTiles;
-
     public void UpdateNavMesh() => myNavMesh.BuildNavMesh();
 
-    [ContextMenu("Build Grid")]
+
+    private bool hadFirstLoad;
+
+    public bool IsOnFirstLoad()
+    {
+        if (hadFirstLoad == false)
+        {
+            hadFirstLoad = true;
+            return true;
+        }
+
+        return false;
+    }
+
+    [ContextMenu("Build grid")]
     private void BuildGrid()
     {
         ClearGrid();
@@ -24,8 +39,8 @@ public class GridBuilder : MonoBehaviour
         for (int x = 0; x < gridLength; x++)
         {
             for (int z = 0; z < gridWidth; z++)
-            {    
-            CreateTile(x,z);
+            {
+                CreateTile(x,z);
             }
         }
     }
@@ -37,14 +52,17 @@ public class GridBuilder : MonoBehaviour
         {
             DestroyImmediate(tile);
         }
+
         createdTiles.Clear();
     }
-
-    private void CreateTile(float xPosition, float zPosition)
+    
+    private void CreateTile(float xPosition,float zPosition)
     {
         Vector3 newPosition = new Vector3(xPosition, 0, zPosition);
         GameObject newTile = Instantiate(mainPrefab, newPosition, Quaternion.identity, transform);
 
         createdTiles.Add(newTile);
+
+        newTile.GetComponent<TileSlot>().TurnIntoBuildSlotIfNeeded(mainPrefab);
     }
 }

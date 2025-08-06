@@ -4,43 +4,40 @@ using UnityEngine;
 
 public class UI_Pause : MonoBehaviour
 {
-
     private UI ui;
     private UI_InGame inGameUI;
 
-    [SerializeField] private GameObject[] pauseUIElements;
+    [SerializeField] private GameObject[] pauseUiElements;
 
-    void Awake()
+    private void Awake()
     {
         ui = GetComponentInParent<UI>();
         inGameUI = ui.GetComponentInChildren<UI_InGame>(true);
     }
 
-    void Update()
+    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.F10))
-        {
             ui.SwitchTo(inGameUI.gameObject);
-        }
     }
 
-    public void SwitchPauseUIElements(GameObject elementsToEnable)
+    public void SwitchPauseUIElements(GameObject elementToEnable)
     {
-        foreach (GameObject obj in pauseUIElements)
+        foreach (GameObject obj in pauseUiElements)
         {
             obj.SetActive(false);
         }
 
-        elementsToEnable.SetActive(true);
+        elementToEnable.SetActive(true);
     }
 
     private void OnEnable()
     {
-        Time.timeScale = 0; // Pause the game      
+        Time.timeScale = 0;
     }
 
     private void OnDisable()
     {
-        Time.timeScale = 1; // Resume the game
+        Time.timeScale = 1;
     }
 }

@@ -5,10 +5,10 @@ using UnityEngine;
 public class Enemy_Visuals : MonoBehaviour
 {
     [SerializeField] private Transform visuals;
-    [SerializeField] private LayerMask wahtIsGround;
+    [SerializeField] private LayerMask whatIsGround;
     [SerializeField] private float verticalRotationSpeed;
 
-    void Update()
+    private void Update()
     {
         AlignWithSlope();
     }
@@ -18,7 +18,7 @@ public class Enemy_Visuals : MonoBehaviour
         if (visuals == null)
             return;
 
-        if (Physics.Raycast(visuals.position, Vector3.down, out RaycastHit hit, Mathf.Infinity, wahtIsGround))
+        if (Physics.Raycast(visuals.position, Vector3.down, out RaycastHit hit, Mathf.Infinity, whatIsGround))
         {
             Quaternion targetRotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
             visuals.rotation = Quaternion.Slerp(visuals.rotation, targetRotation, Time.deltaTime * verticalRotationSpeed);

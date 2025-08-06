@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -9,52 +10,51 @@ public class UI_Settings : MonoBehaviour
     private CameraController camController;
 
     [Header("Keyboard Sensetivity")]
-    [SerializeField] private Slider keyboardSensSlider;
+    [SerializeField] private Slider keyboardSenseSlider;
     [SerializeField] private TextMeshProUGUI keyboardSensText;
-    [SerializeField] private string keyboardSensParameter = "keyboardSens";
+    [SerializeField] private string keyboardSenseParametr = "keyboardSens";
 
-    [SerializeField] private float minKeyboardSens = 100;
-    [SerializeField] private float maxKeyboardSens = 500;
+    [SerializeField] private float minKeyboardSens = 60;
+    [SerializeField] private float maxKeyboardSens = 240;
 
     [Header("Mouse Sensetivity")]
-    [SerializeField] private Slider mouseSensSlider;
+    [SerializeField] private Slider mouseSenseSlider;
     [SerializeField] private TextMeshProUGUI mouseSensText;
-    [SerializeField] private string mouseSensParameter = "mouseSens";
+    [SerializeField] private string mouseSenseParamter = "mouseSens";
 
-    [SerializeField] private float minMouseSens = 100;
-    [SerializeField] private float maxMouseSens = 500;
+    [SerializeField] private float minMouseSense = 100;
+    [SerializeField] private float maxMouseSense = 500;
 
-
-    void Awake()
+    private void Awake()
     {
         camController = FindFirstObjectByType<CameraController>();
     }
 
     public void KeyboardSensitivity(float value)
     {
-        float newSensitivity = Mathf.Lerp(minKeyboardSens, maxKeyboardSens, value);
-        camController.AdjustKeyboardSensitivity(newSensitivity);
+        float newSensetivity = Mathf.Lerp(minKeyboardSens,maxKeyboardSens, value);
+        camController.AdjustKeyboardSenseitivty(newSensetivity);
 
         keyboardSensText.text = Mathf.RoundToInt(value * 100) + "%";
     }
 
     public void MouseSensitivity(float value)
     {
-        float newSensitivity = Mathf.Lerp(minMouseSens, maxMouseSens, value);
-        camController.AdjustMouseSensitivity(newSensitivity);
+        float newSenseitivty = Mathf.Lerp(minMouseSense,maxMouseSense, value);
+        camController.AdjustMouseSensetivity(newSenseitivty);
 
         mouseSensText.text = Mathf.RoundToInt(value * 100) + "%";
     }
 
     private void OnDisable()
     {
-        PlayerPrefs.SetFloat(keyboardSensParameter, keyboardSensSlider.value);
-        PlayerPrefs.SetFloat(mouseSensParameter, mouseSensSlider.value);
+        PlayerPrefs.SetFloat(keyboardSenseParametr, keyboardSenseSlider.value);
+        PlayerPrefs.SetFloat(mouseSenseParamter, mouseSenseSlider.value);
     }
 
     private void OnEnable()
     {
-        keyboardSensSlider.value = PlayerPrefs.GetFloat(keyboardSensParameter, .5f);
-        mouseSensSlider.value = PlayerPrefs.GetFloat(mouseSensParameter, .5f);
+        keyboardSenseSlider.value = PlayerPrefs.GetFloat(keyboardSenseParametr, .6f);
+        mouseSenseSlider.value = PlayerPrefs.GetFloat(mouseSenseParamter, .6f);
     }
 }

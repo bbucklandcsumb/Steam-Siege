@@ -11,40 +11,42 @@ public class UI_BuildButton : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     private CameraEffects cameraEffects;
     private GameManager gameManager;
     private UI_BuildButtonsHolder buildButtonsHolder;
-    private UI_BuildButtonsOnHoverEffect onHoverEffect;
+    private UI_BuildButtonOnHoverEffect onHoverEffect;
+
 
     [SerializeField] private string towerName;
     [SerializeField] private int towerPrice = 50;
     [Space]
     [SerializeField] private GameObject towerToBuild;
-    [SerializeField] private float towerCenterY = 0.5f;
+    [SerializeField] private float towerCenterY = .5f;
     [Header("Text Components")]
     [SerializeField] private TextMeshProUGUI towerNameText;
     [SerializeField] private TextMeshProUGUI towerPriceText;
 
-    
 
-    private TowerPreview towerPreview;
+    //It is used to preview tower before building it
+    public TowerPreview towerPreview;
     public bool buttonUnlocked { get; private set; }
 
-    void Awake()
+    private void Awake()
     {
         ui = GetComponentInParent<UI>();
-        onHoverEffect = GetComponent<UI_BuildButtonsOnHoverEffect>();
+        onHoverEffect = GetComponent<UI_BuildButtonOnHoverEffect>();
         buildButtonsHolder = GetComponentInParent<UI_BuildButtonsHolder>();
+
         buildManager = FindFirstObjectByType<BuildManager>();
-        cameraEffects = FindFirstObjectByType<CameraEffects>();
+        cameraEffects = FindFirstObjectByType<CameraEffects>(); 
         gameManager = FindFirstObjectByType<GameManager>();
     }
 
-    void Start()
+    private void Start()
     {
         CreateTowerPreview();
     }
 
     private void CreateTowerPreview()
     {
-        GameObject newPreview = Instantiate(towerToBuild, Vector3.zero, Quaternion.identity);
+        GameObject newPreview = Instantiate(towerToBuild,Vector3.zero, Quaternion.identity);
 
         towerPreview = newPreview.AddComponent<TowerPreview>();
         towerPreview.gameObject.SetActive(false);
@@ -52,15 +54,13 @@ public class UI_BuildButton : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void SelectButton(bool select)
     {
-        //if (towerPreview == null)
-            //return;
-
         BuildSlot slotToUse = buildManager.GetSelectedSlot();
 
         if (slotToUse == null)
             return;
 
         Vector3 previewPosition = slotToUse.GetBuildPosition(1);
+
 
         towerPreview.gameObject.SetActive(select);
         towerPreview.ShowPreview(select, previewPosition);
@@ -79,36 +79,37 @@ public class UI_BuildButton : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void BuildTower()
     {
-        if (!gameManager.HasEnoughCurrency(towerPrice))
+        if (gameManager.HasEnoughCurrency(towerPrice) == false)
         {
             ui.inGameUI.ShakeCurrencyUI();
             return;
         }
 
-
         if (towerToBuild == null)
         {
-            Debug.LogWarning("Tower to build is not assigned.");
+            Debug.LogWarning("You did not assign tower to this button!");
             return;
         }
 
         if (ui.buildButtonsUI.GetLastSelectedButton() == null)
             return;
 
-
         BuildSlot slotToUse = buildManager.GetSelectedSlot();
         buildManager.CancelBuildAction();
-        slotToUse.SnapToDefaultPositionImmediately();
-        slotToUse.SetSlotAvailableTo(false);
-        ui.buildButtonsUI.SetLastSelected(null);
-        cameraEffects.Screenshake(0.15f, 0.02f);
 
-        GameObject newTower = Instantiate(towerToBuild, slotToUse.GetBuildPosition(towerCenterY), Quaternion.identity);
+        slotToUse.SnapToDefaultPositionImmidiatly();
+        slotToUse.SetSlotAvalibleTo(false);
+
+        ui.buildButtonsUI.SetLastSelected(null);
+
+        cameraEffects.Screenshake(.15f, .02f);
+
+        GameObject newTower = Instantiate(towerToBuild,slotToUse.GetBuildPosition(towerCenterY),Quaternion.identity);
     }
+
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-
         buildManager.MouseOverUI(true);
 
         foreach (var button in buildButtonsHolder.GetBuildButtons())

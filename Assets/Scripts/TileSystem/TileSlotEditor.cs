@@ -1,32 +1,34 @@
-using System;
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(TileSlot)), CanEditMultipleObjects]
+
+[CustomEditor(typeof(TileSlot)),CanEditMultipleObjects]
 
 public class TileSlotEditor : Editor
 {
 
-    private GUIStyle centeredStyle;
+    private GUIStyle centeredStlye;
 
     public override void OnInspectorGUI()
     {
         serializedObject.Update();
         base.OnInspectorGUI();
 
-        centeredStyle = new GUIStyle(GUI.skin.label)
+
+        centeredStlye = new GUIStyle(GUI.skin.label)
         {
             alignment = TextAnchor.MiddleCenter,
             fontStyle = FontStyle.Bold,
             fontSize = 14
         };
 
-        float oneButtonWidth = (EditorGUIUtility.currentViewWidth - 25);
+
+        float oneButtonWith = (EditorGUIUtility.currentViewWidth - 25);
         float twoButtonWidth = (EditorGUIUtility.currentViewWidth - 25) / 2;
         float threeButtonWidth = (EditorGUIUtility.currentViewWidth - 25) / 3;
 
 
-        GUILayout.Label("Position and Rotation", centeredStyle);
+        GUILayout.Label("Position and Rotation", centeredStlye);
 
         GUILayout.BeginHorizontal();
 
@@ -46,17 +48,14 @@ public class TileSlotEditor : Editor
             }
         }
 
-
-
         GUILayout.EndHorizontal();
-
-         GUILayout.BeginHorizontal();
+        GUILayout.BeginHorizontal();
 
         if (GUILayout.Button("- .1f on the Y", GUILayout.Width(twoButtonWidth)))
         {
             foreach (var targetTile in targets)
             {
-                ((TileSlot)targetTile).AdjustY(-1);
+                ((TileSlot)targetTile).ADjustY(-1);
             }
         }
 
@@ -64,15 +63,13 @@ public class TileSlotEditor : Editor
         {
             foreach (var targetTile in targets)
             {
-                ((TileSlot)targetTile).AdjustY(1);
+                ((TileSlot)targetTile).ADjustY(1);
             }
         }
 
-
-
         GUILayout.EndHorizontal();
 
-        GUILayout.Label("Tile Options", centeredStyle);
+        GUILayout.Label("Tile Options", centeredStlye);
 
         GUILayout.BeginHorizontal();
 
@@ -97,12 +94,11 @@ public class TileSlotEditor : Editor
         }
 
 
-
         GUILayout.EndHorizontal();
 
         GUILayout.BeginHorizontal();
 
-        if (GUILayout.Button("SideWay", GUILayout.Width(oneButtonWidth)))
+        if (GUILayout.Button("Sideway", GUILayout.Width(oneButtonWith)))
         {
             GameObject newTile = FindFirstObjectByType<TileSetHolder>().tileSideway;
 
@@ -114,8 +110,7 @@ public class TileSlotEditor : Editor
 
         GUILayout.EndHorizontal();
 
-
-        GUILayout.Label("Corner Options", centeredStyle);
+        GUILayout.Label("Corner Options", centeredStlye);
 
 
         GUILayout.BeginHorizontal();
@@ -140,9 +135,10 @@ public class TileSlotEditor : Editor
             }
         }
 
+
         GUILayout.EndHorizontal();
 
-                GUILayout.BeginHorizontal();
+        GUILayout.BeginHorizontal();
 
         if (GUILayout.Button("Small Inner Corner", GUILayout.Width(twoButtonWidth)))
         {
@@ -165,10 +161,9 @@ public class TileSlotEditor : Editor
         }
 
 
-
         GUILayout.EndHorizontal();
 
-        GUILayout.Label("Bridges and Hills", centeredStyle);
+        GUILayout.Label("Bridges and Hills", centeredStlye);
 
         GUILayout.BeginHorizontal();
 
@@ -204,9 +199,8 @@ public class TileSlotEditor : Editor
 
 
         GUILayout.EndHorizontal();
-        
 
-         GUILayout.BeginHorizontal();
+        GUILayout.BeginHorizontal();
 
         if (GUILayout.Button("Bridge with field", GUILayout.Width(threeButtonWidth)))
         {
@@ -228,7 +222,7 @@ public class TileSlotEditor : Editor
             }
         }
 
-         if (GUILayout.Button("Bridge with sideway", GUILayout.Width(threeButtonWidth)))
+        if (GUILayout.Button("Bridge with sideway", GUILayout.Width(threeButtonWidth)))
         {
             GameObject newTile = FindFirstObjectByType<TileSetHolder>().tileBridgeSideway;
 
@@ -241,5 +235,20 @@ public class TileSlotEditor : Editor
 
         GUILayout.EndHorizontal();
 
+        GUILayout.Label("Level Button", centeredStlye);
+
+        GUILayout.BeginHorizontal();
+
+        if (GUILayout.Button("Level Button Tile", GUILayout.Width(oneButtonWith)))
+        {
+            GameObject newTile = FindFirstObjectByType<TileSetHolder>().levelSelectTile;
+
+            foreach (var targetTile in targets)
+            {
+                ((TileSlot)targetTile).SwitchTile(newTile);
+            }
+        }
+
+        GUILayout.EndHorizontal();
     }
 }

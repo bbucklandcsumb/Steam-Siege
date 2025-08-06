@@ -8,23 +8,25 @@ public class TowerPreview : MonoBehaviour
     private MeshRenderer[] meshRenderers;
     private TowerAttackRadiusDisplay attackRadiusDisplay;
     private Tower myTower;
+
     private float attackRange;
 
-    void Awake()
+    private void Awake()
     {
-        meshRenderers = GetComponentsInChildren<MeshRenderer>();
-        myTower = GetComponent<Tower>();
         attackRadiusDisplay = transform.AddComponent<TowerAttackRadiusDisplay>();
+        meshRenderers = GetComponentsInChildren<MeshRenderer>();
+
+        myTower = GetComponent<Tower>();
         attackRange = myTower.GetAttackRange();
 
-        MakeAllMeshTransparent();
+        MakeAllMeshTransperent();
         DestroyExtraComponents();
     }
 
     public void ShowPreview(bool showPreview, Vector3 previewPosition)
     {
         transform.position = previewPosition;
-        attackRadiusDisplay.CreateCircle(showPreview, attackRange);
+        attackRadiusDisplay.CreateCircle(showPreview,attackRange);
     }
 
     private void DestroyExtraComponents()
@@ -38,7 +40,7 @@ public class TowerPreview : MonoBehaviour
         }
     }
 
-    private void MakeAllMeshTransparent()
+    private void MakeAllMeshTransperent()
     {
         Material previewMat = FindFirstObjectByType<BuildManager>().GetBuildPreviewMat();
 

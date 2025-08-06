@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class Waypoint : MonoBehaviour
 {
-    // Script is needed to detect waypoints
+    // we need this script to to detect waypoints
 }

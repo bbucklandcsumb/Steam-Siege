@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Tower_Crossbow : Tower
 {
+
     private Crossbow_Visuals visuals;
 
     [Header("Crossbow details")]
@@ -19,13 +20,14 @@ public class Tower_Crossbow : Tower
 
     protected override void Attack()
     {
-        Vector3 directionToEnemy = DirectiontoEnemyFrom(gunPoint);
+        Vector3 directionToEnemy = DirectionToEnemyFrom(gunPoint);
 
         if (Physics.Raycast(gunPoint.position, directionToEnemy, out RaycastHit hitInfo, Mathf.Infinity))
         {
             towerHead.forward = directionToEnemy;
 
             Enemy enemyTarget = null;
+
             IDamagable damagable = hitInfo.transform.GetComponent<IDamagable>();
 
             if (damagable != null)
@@ -35,8 +37,8 @@ public class Tower_Crossbow : Tower
             }
 
 
-            visuals.PlayAttackVFX(gunPoint.position, hitInfo.point, enemyTarget);
-            visuals.PlayReloadVFX(attackCooldown);
+            visuals.PlayAttackVFX(gunPoint.position, hitInfo.point,enemyTarget);
+            visuals.PlayReloaxVFX(attackCooldown);
         }
     }
 }

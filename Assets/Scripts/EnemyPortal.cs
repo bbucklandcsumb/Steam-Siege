@@ -1,20 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyPortal : MonoBehaviour
 {
+    [SerializeField] private WaveManager myWaveManager;
     [SerializeField] private float spawnCooldown;
     private float spawnTimer;
 
     [Space]
+
     [SerializeField] private List<Waypoint> waypointList;
 
     private List<GameObject> enemiesToCreate = new List<GameObject>();
     private List<GameObject> activeEnemies = new List<GameObject>();
 
-    void Awake()
+    private void Awake()
     {
         CollectWaypoints();
     }
@@ -24,6 +25,8 @@ public class EnemyPortal : MonoBehaviour
         if (CanMakeNewEnemy())
             CreateEnemy();
     }
+
+    public void AssignWaveManager(WaveManager newWaveManager) => myWaveManager = newWaveManager;
 
     private bool CanMakeNewEnemy()
     {
@@ -37,6 +40,7 @@ public class EnemyPortal : MonoBehaviour
 
         return false;
     }
+
 
     private void CreateEnemy()
     {
@@ -62,21 +66,25 @@ public class EnemyPortal : MonoBehaviour
     public void AddEnemy(GameObject enemyToAdd) => enemiesToCreate.Add(enemyToAdd);
     public void RemoveActiveEnemy(GameObject enemyToRemove)
     {
-        if (activeEnemies.Contains(enemyToRemove))
+        if(activeEnemies.Contains(enemyToRemove))
             activeEnemies.Remove(enemyToRemove);
+
+        myWaveManager.CheckIfWaveCompleted();
     }
+
     public List<GameObject> GetActiveEnemies() => activeEnemies;
+
 
     [ContextMenu("Collect waypoints")]
     private void CollectWaypoints()
     {
-        waypointList = new List<Waypoint>();
+        waypointList = new List<Waypoint>(); 
 
         foreach (Transform child in transform)
         {
             Waypoint waypoint = child.GetComponent<Waypoint>();
 
-            if (waypoint != null)
+            if(waypoint != null)
                 waypointList.Add(waypoint);
         }
     }

@@ -10,12 +10,12 @@ public class UI : MonoBehaviour
     private UI_Settings settingsUI;
     private UI_MainMenu mainMenuUI;
 
+
     public UI_InGame inGameUI { get; private set; }
     public UI_Animator uiAnim { get; private set; }
-
     public UI_BuildButtonsHolder buildButtonsUI { get; private set; }
 
-    void Awake()
+    private void Awake()
     {
         buildButtonsUI = GetComponentInChildren<UI_BuildButtonsHolder>(true);
         settingsUI = GetComponentInChildren<UI_Settings>(true);
@@ -26,9 +26,10 @@ public class UI : MonoBehaviour
         //ActivateFadeEffect(true);
 
         SwitchTo(settingsUI.gameObject);
-        //SwitchTo(uiMainMenu.gameObject);
-        SwitchTo(inGameUI.gameObject);
+        SwitchTo(mainMenuUI.gameObject);
+        //SwitchTo(inGameUI.gameObject);
     }
+
 
     public void SwitchTo(GameObject uiToEnable)
     {
@@ -37,7 +38,27 @@ public class UI : MonoBehaviour
             ui.SetActive(false);
         }
 
-        uiToEnable.SetActive(true);
+        if(uiToEnable != null) 
+            uiToEnable.SetActive(true);
+    }
+
+    public void EnableMainMenuUI(bool enable)
+    {
+        if (enable)
+            SwitchTo(mainMenuUI.gameObject);
+        else
+            SwitchTo(null);
+    }
+
+    public void EnableInGameUI(bool enable)
+    {
+        if(enable)
+            SwitchTo(inGameUI.gameObject);
+        else
+        {
+            inGameUI.SnapTimerToDefaultPosition();
+            SwitchTo(null);
+        }
     }
 
     public void QuitButton()
@@ -51,8 +72,8 @@ public class UI : MonoBehaviour
     public void ActivateFadeEffect(bool fadeIn)
     {
         if (fadeIn)
-            uiAnim.ChangeColor(fadeImageUI, 0, 2);
+            uiAnim.ChangeColor(fadeImageUI, 0, 0);
         else
-            uiAnim.ChangeColor(fadeImageUI, 1, 2);
+            uiAnim.ChangeColor(fadeImageUI, 1, 0);
     }
 }

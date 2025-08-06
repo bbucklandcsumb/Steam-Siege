@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using Unity.AI.Navigation;
 using Unity.VisualScripting;
@@ -6,9 +5,10 @@ using UnityEngine;
 
 public class TileSlot : MonoBehaviour
 {
+
     private MeshRenderer meshRenderer => GetComponent<MeshRenderer>();
     private MeshFilter meshFilter => GetComponent<MeshFilter>();
-    private Collider myCollider => GetComponent<Collider>();
+    private Collider myCollder => GetComponent<Collider>();
     private NavMeshSurface myNavMesh => GetComponentInParent<NavMeshSurface>(true);
     private TileSetHolder tileSetHolder => GetComponentInParent<TileSetHolder>(true);
 
@@ -30,10 +30,10 @@ public class TileSlot : MonoBehaviour
     }
 
 
+
     public Material GetMaterial() => meshRenderer.sharedMaterial;
     public Mesh GetMesh() => meshFilter.sharedMesh;
-    public Collider GetCollider() => myCollider;
-
+    public Collider GetCollider() => myCollder;
     public List<GameObject> GetAllChildren()
     {
         List<GameObject> children = new List<GameObject>();
@@ -46,27 +46,27 @@ public class TileSlot : MonoBehaviour
         return children;
     }
 
-    private void TurnIntoBuildSlotIfNeeded(GameObject referenceTile)
+    public void TurnIntoBuildSlotIfNeeded(GameObject refereneTile)
     {
         BuildSlot buildSlot = GetComponent<BuildSlot>();
 
-        if (referenceTile != tileSetHolder.tileField)
+        if (refereneTile != tileSetHolder.tileField)
         {
             if (buildSlot != null)
                 DestroyImmediate(buildSlot);
         }
         else
         {
-            if (buildSlot == null)
+            if(buildSlot == null)
                 gameObject.AddComponent<BuildSlot>();
         }
     }
 
     private void UpdateNavMesh() => myNavMesh.BuildNavMesh();
 
-    public void UpdateCollider(Collider newCollider)
+    private void UpdateCollider(Collider newCollider)
     {
-        DestroyImmediate(myCollider);
+        DestroyImmediate(myCollder);
 
         if (newCollider is BoxCollider)
         {
@@ -108,7 +108,7 @@ public class TileSlot : MonoBehaviour
         UpdateNavMesh();
     }
 
-    public void AdjustY(int verticalDir)
+    public void ADjustY(int verticalDir)
     {
         transform.position += new Vector3(0, .1f * verticalDir, 0);
         UpdateNavMesh();
