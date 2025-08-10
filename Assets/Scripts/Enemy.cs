@@ -144,7 +144,7 @@ public class Enemy : MonoBehaviour , IDamagable
     private void Die()
     {
         myPortal.RemoveActiveEnemy(gameObject);
-        gameManager.UpdateCurrency(1);
+        gameManager.UpdateCurrency(5);
         Destroy(gameObject);
     }
 

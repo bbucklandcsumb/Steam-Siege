@@ -3,11 +3,26 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 
 public class UI_Settings : MonoBehaviour
 {
     private CameraController camController;
+    [SerializeField] private AudioMixer audioMixer;
+    [SerializeField] private float mixerMultiplier = 25;
+
+    [Header("SFX Settings")]
+    [SerializeField] private Slider sfxSlider;
+    [SerializeField] private string sfxParameter;
+    [SerializeField] private TextMeshProUGUI sfxSliderText;
+
+    [Header("BGM Settings")]
+    [SerializeField] private Slider bgmSlider;
+    [SerializeField] private string bgmParameter;
+    [SerializeField] private TextMeshProUGUI bgmSliderText;
+
+    
 
     [Header("Keyboard Sensetivity")]
     [SerializeField] private Slider keyboardSenseSlider;
@@ -22,17 +37,33 @@ public class UI_Settings : MonoBehaviour
     [SerializeField] private TextMeshProUGUI mouseSensText;
     [SerializeField] private string mouseSenseParamter = "mouseSens";
 
-    [SerializeField] private float minMouseSense = 100;
-    [SerializeField] private float maxMouseSense = 500;
+    [SerializeField] private float minMouseSense = 1;
+    [SerializeField] private float maxMouseSense = 10;
 
     private void Awake()
     {
         camController = FindFirstObjectByType<CameraController>();
     }
 
+    public void SFXSliderValue(float value)
+    {
+        float newValue = Mathf.Log10(value) * mixerMultiplier;
+        audioMixer.SetFloat(sfxParameter, newValue);
+
+        sfxSliderText.text = Mathf.RoundToInt(value * 100) + "%";
+    }
+
+    public void BGMSliderValue(float value)
+    {
+        float newValue = Mathf.Log10(value) * mixerMultiplier;
+        audioMixer.SetFloat(bgmParameter, newValue);
+
+        bgmSliderText.text = Mathf.RoundToInt(value * 100) + "%";
+    }
+
     public void KeyboardSensitivity(float value)
     {
-        float newSensetivity = Mathf.Lerp(minKeyboardSens,maxKeyboardSens, value);
+        float newSensetivity = Mathf.Lerp(minKeyboardSens, maxKeyboardSens, value);
         camController.AdjustKeyboardSenseitivty(newSensetivity);
 
         keyboardSensText.text = Mathf.RoundToInt(value * 100) + "%";
@@ -50,11 +81,16 @@ public class UI_Settings : MonoBehaviour
     {
         PlayerPrefs.SetFloat(keyboardSenseParametr, keyboardSenseSlider.value);
         PlayerPrefs.SetFloat(mouseSenseParamter, mouseSenseSlider.value);
+        PlayerPrefs.SetFloat(sfxParameter, sfxSlider.value);
+        PlayerPrefs.SetFloat(bgmParameter, bgmSlider.value);
+
     }
 
     private void OnEnable()
     {
         keyboardSenseSlider.value = PlayerPrefs.GetFloat(keyboardSenseParametr, .6f);
         mouseSenseSlider.value = PlayerPrefs.GetFloat(mouseSenseParamter, .6f);
+        sfxSlider.value = PlayerPrefs.GetFloat(sfxParameter, .6f);
+        bgmSlider.value = PlayerPrefs.GetFloat(bgmParameter, .6f);
     }
 }

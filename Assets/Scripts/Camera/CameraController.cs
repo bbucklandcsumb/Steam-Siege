@@ -8,7 +8,7 @@ public class CameraController : MonoBehaviour
 
     [Header("Movement Details")]
     [SerializeField] private float movementSpeed = 120;
-    [SerializeField] private float mouseMovementSpeed = 100;
+    [SerializeField] private float mouseMovementSpeed = 5;
     [SerializeField] private float edgeMovementSpeed = 50;
     [SerializeField] private float edgeTreshold = 10;
     private float screenWidth;
