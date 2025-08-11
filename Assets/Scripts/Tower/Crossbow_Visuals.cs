@@ -6,6 +6,8 @@ public class Crossbow_Visuals : MonoBehaviour
 {
     private Enemy myEnemy;
 
+    [Header("Attack Visuals")]
+    [SerializeField] private GameObject onHitFx;
     [SerializeField] private LineRenderer attackVisuals;
     [SerializeField] private float attackVisualDuration = .1f;
 
@@ -72,6 +74,12 @@ public class Crossbow_Visuals : MonoBehaviour
         UpdateEmissionColor();
         UpdateStrings();
         UpdateAttackVisualsIfNeeded();
+    }
+
+    public void CreateOnHitFx(Vector3 hitPoint)
+    {
+        GameObject newFx = Instantiate(onHitFx, hitPoint, Random.rotation);
+        Destroy(newFx, 1);
     }
 
     private void UpdateAttackVisualsIfNeeded()

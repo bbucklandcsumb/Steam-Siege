@@ -245,7 +245,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: becbb4dde857e67428161d08a1fdbac9, type: 2}
+  - {fileID: 2100000, guid: 4e8c04141607d604c8422f339b96605b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -574,7 +574,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: becbb4dde857e67428161d08a1fdbac9, type: 2}
+  - {fileID: 2100000, guid: 4e8c04141607d604c8422f339b96605b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1115,7 +1115,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: becbb4dde857e67428161d08a1fdbac9, type: 2}
+  - {fileID: 2100000, guid: 4e8c04141607d604c8422f339b96605b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1198,7 +1198,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 44faa696e85de134ab429819db0284e6, type: 2}
+  - {fileID: 2100000, guid: 4e8c04141607d604c8422f339b96605b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1281,7 +1281,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: becbb4dde857e67428161d08a1fdbac9, type: 2}
+  - {fileID: 2100000, guid: 4e8c04141607d604c8422f339b96605b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1364,7 +1364,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: becbb4dde857e67428161d08a1fdbac9, type: 2}
+  - {fileID: 2100000, guid: 4e8c04141607d604c8422f339b96605b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1467,18 +1467,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentEnemy: {fileID: 0}
+  dynamicTargetChange: 1
   attackCooldown: 2.5
   enemyPriorityType: 2
   towerHead: {fileID: 6237702711920369569}
+  gunPoint: {fileID: 1195392874440883424}
   rotationSpeed: 10
   attackRange: 4
   whatIsEnemy:
     serializedVersion: 2
     m_Bits: 128
-  dynamicTargetChange: 1
   attackSfx: {fileID: 4431818879719859035}
   damage: 2
-  gunPoint: {fileID: 1195392874440883424}
 --- !u!114 &8033960105146601928
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1491,12 +1491,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abac6aedd892b0743804ac5f94fa4cf4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onHitFx: {fileID: 6767030571392362208, guid: 2eff9ff28ce4ba8438fc1a16f2773bc7, type: 3}
   attackVisuals: {fileID: 6617516301613726604}
   attackVisualDuration: 0.1
   meshRenderer: {fileID: 5593918411241457}
   maxIntensity: 150
   startColor: {r: 0, g: 0, b: 0, a: 1}
-  endColor: {r: 0.047058824, g: 0.7607843, b: 0.7921569, a: 1}
+  endColor: {r: 1, g: 0.8784314, b: 0.27058825, a: 1}
   rotor: {fileID: 341165810185006100}
   rotorUnloaded: {fileID: 5476575755827032328}
   rotorLoaded: {fileID: 8137164766037501273}
@@ -1699,7 +1700,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: becbb4dde857e67428161d08a1fdbac9, type: 2}
+  - {fileID: 2100000, guid: 4e8c04141607d604c8422f339b96605b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1904,7 +1905,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: becbb4dde857e67428161d08a1fdbac9, type: 2}
+  - {fileID: 2100000, guid: 4e8c04141607d604c8422f339b96605b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2040,7 +2041,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: becbb4dde857e67428161d08a1fdbac9, type: 2}
+  - {fileID: 2100000, guid: 4e8c04141607d604c8422f339b96605b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

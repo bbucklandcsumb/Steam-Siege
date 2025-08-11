@@ -1221,6 +1221,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy_Portal
       objectReference: {fileID: 0}
+    - target: {fileID: 2709711412563784472, guid: 8be0252ae1b63464984422ad2a7408e9,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1e28e06a87ab3144586661d050f18f5d, type: 2}
     - target: {fileID: 5870739454608276991, guid: 8be0252ae1b63464984422ad2a7408e9,
         type: 3}
       propertyPath: m_Enabled
@@ -1399,7 +1404,7 @@ PrefabInstance:
     - target: {fileID: -7845583527900591222, guid: 8be0252ae1b63464984422ad2a7408e9,
         type: 3}
       propertyPath: spawnCooldown
-      value: 1.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7845583527900591222, guid: 8be0252ae1b63464984422ad2a7408e9,
         type: 3}
@@ -1511,6 +1516,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2709711412563784472, guid: 8be0252ae1b63464984422ad2a7408e9,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1e28e06a87ab3144586661d050f18f5d, type: 2}
     - target: {fileID: 5870739454608276991, guid: 8be0252ae1b63464984422ad2a7408e9,
         type: 3}
       propertyPath: m_Enabled
@@ -43272,6 +43282,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy_Portal (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2709711412563784472, guid: 8be0252ae1b63464984422ad2a7408e9,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1e28e06a87ab3144586661d050f18f5d, type: 2}
     - target: {fileID: 5870739454608276991, guid: 8be0252ae1b63464984422ad2a7408e9,
         type: 3}
       propertyPath: m_Enabled
@@ -95271,21 +95286,26 @@ MonoBehaviour:
     newPortals: []
     basicEnemy: 10
     fastEnemy: 0
+    heavyEnemy: 0
   - nextGrid: {fileID: 0}
     newPortals: []
     basicEnemy: 12
     fastEnemy: 4
+    heavyEnemy: 0
   - nextGrid: {fileID: 1644523211}
     newPortals:
     - {fileID: 223028186}
     basicEnemy: 14
     fastEnemy: 6
+    heavyEnemy: 3
   waveIndex: 0
   yOffset: 5
   tileDelay: 0.1
   basicEnemy: {fileID: 3382086203631219662, guid: ab8ad4c6387882e448b1ef4a7fba51e4,
     type: 3}
   fastEnemy: {fileID: 8796434388098386084, guid: 4314b52b2f9dc114a88a77a6c9c67b1c,
+    type: 3}
+  heavyEnemy: {fileID: 8867225929771561394, guid: fdba430d85f96c54f8f9577b4274d1d6,
     type: 3}
   gameBegun: 0
 --- !u!4 &1438963826

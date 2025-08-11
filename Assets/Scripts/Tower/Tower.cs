@@ -4,22 +4,24 @@ using UnityEngine;
 public class Tower : MonoBehaviour
 {
     public Enemy currentEnemy;
+    
 
+    [Tooltip("Enabling this allows tower to change target beetwen attacks")]
+    [SerializeField] private bool dynamicTargetChange;
     [SerializeField] protected float attackCooldown = 1;
     protected float lastTimeAttacked;
 
     [Header("Tower Setup")]
     [SerializeField] protected EnemyType enemyPriorityType = EnemyType.None;
     [SerializeField] protected Transform towerHead;
+    [SerializeField] protected Transform gunPoint;
     [SerializeField] protected float rotationSpeed = 10;
-    private bool canRotate;
+
 
     [SerializeField] protected float attackRange = 2.5f;
     [SerializeField] protected LayerMask whatIsEnemy;
 
     [Space]
-    [Tooltip("Enabling this allows tower to change target beetwen attacks")]
-    [SerializeField] private bool dynamicTargetChange;
     private float targetCheckInterval = .1f;
     private float lastTimeCheckedTarget;
 
@@ -28,36 +30,37 @@ public class Tower : MonoBehaviour
 
     protected virtual void Awake()
     {
-        EnableRotation(true);
+
     }
 
 
     protected virtual void Update()
     {
+        LooseTargetIfNeeded();
         UpdateTargetIfNeeded();
+        HandleRotation();
 
+        if (CanAttack())
+            Attack();
+    }
+
+    private void LooseTargetIfNeeded()
+    {
+        if (currentEnemy == null)
+            return;
+
+        if (Vector3.Distance(currentEnemy.CenterPoint(), transform.position) > attackRange)
+                currentEnemy = null;
+    }
+
+    private void UpdateTargetIfNeeded()
+    {
         if (currentEnemy == null)
         {
             currentEnemy = FindEnemyWithinRange();
             return;
         }
 
-        if (CanAttack())
-            Attack();
-
-        LooseTargetIfNeeded();
-        RotateTowardsEnemy();
-    }
-
-    public float GetAttackRange() => attackRange;
-    private void LooseTargetIfNeeded()
-    {
-        if (Vector3.Distance(currentEnemy.CenterPoint(), transform.position) > attackRange)
-            currentEnemy = null;
-    }
-
-    private void UpdateTargetIfNeeded()
-    {
         if (dynamicTargetChange == false)
             return;
 
@@ -71,20 +74,15 @@ public class Tower : MonoBehaviour
     protected virtual void Attack()
     {
         //Debug.Log("Attack performed at " + Time.time);
+        lastTimeAttacked = Time.time;
     }
 
     protected bool CanAttack()
     {
-        if (Time.time > lastTimeAttacked + attackCooldown)
-        {
-            lastTimeAttacked = Time.time;
-            return true;
-        }
-
-        return false;
+        return Time.time > lastTimeAttacked + attackCooldown && currentEnemy != null;
     }
 
-    protected Enemy FindEnemyWithinRange()
+    protected virtual Enemy FindEnemyWithinRange()
     {
         List<Enemy> priorityTargets = new List<Enemy>();
         List<Enemy> possibleTargets = new List<Enemy>();
@@ -94,6 +92,10 @@ public class Tower : MonoBehaviour
         foreach (Collider enemy in enemiesAround)
         {
             Enemy newEnemy = enemy.GetComponent<Enemy>();
+
+            if (newEnemy == null)
+                continue;
+
             EnemyType newEnemyType = newEnemy.GetEnemyType();
 
             if(newEnemyType == enemyPriorityType)
@@ -130,17 +132,16 @@ public class Tower : MonoBehaviour
         return mostAdvancedEnemy;
     }
 
-    public void EnableRotation(bool enable)
+    protected virtual void HandleRotation()
     {
-        canRotate = enable;
+        RotateTowardsEnemy();
     }
+
 
     protected virtual void RotateTowardsEnemy()
     {
-        if (canRotate == false)
-            return;
 
-        if (currentEnemy == null)
+        if (currentEnemy == null || towerHead == null)
             return;
 
         // Calculate the vector direction from the tower's head to the current enemy.
@@ -161,6 +162,8 @@ public class Tower : MonoBehaviour
     {
         return (currentEnemy.CenterPoint() - startPoint.position).normalized;
     }
+
+    public float GetAttackRange() => attackRange;
 
 
     protected virtual void OnDrawGizmos()

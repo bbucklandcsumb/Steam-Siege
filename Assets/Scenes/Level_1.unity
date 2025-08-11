@@ -1285,6 +1285,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy_Portal
       objectReference: {fileID: 0}
+    - target: {fileID: 2709711412563784472, guid: 8be0252ae1b63464984422ad2a7408e9,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1e28e06a87ab3144586661d050f18f5d, type: 2}
     - target: {fileID: 5870739454608276991, guid: 8be0252ae1b63464984422ad2a7408e9,
         type: 3}
       propertyPath: m_Enabled
@@ -92185,27 +92190,33 @@ MonoBehaviour:
   - nextGrid: {fileID: 0}
     newPortals: []
     basicEnemy: 8
-    fastEnemy: 0
+    fastEnemy: 8
+    heavyEnemy: 1
   - nextGrid: {fileID: 0}
     newPortals: []
     basicEnemy: 10
     fastEnemy: 0
+    heavyEnemy: 0
   - nextGrid: {fileID: 1278275493}
     newPortals:
     - {fileID: 2118959112}
     basicEnemy: 10
     fastEnemy: 4
+    heavyEnemy: 0
   - nextGrid: {fileID: 0}
     newPortals:
     - {fileID: 0}
     basicEnemy: 12
     fastEnemy: 6
+    heavyEnemy: 0
   waveIndex: 0
   yOffset: 5
   tileDelay: 0.1
   basicEnemy: {fileID: 3382086203631219662, guid: ab8ad4c6387882e448b1ef4a7fba51e4,
     type: 3}
   fastEnemy: {fileID: 8796434388098386084, guid: 4314b52b2f9dc114a88a77a6c9c67b1c,
+    type: 3}
+  heavyEnemy: {fileID: 8867225929771561394, guid: fdba430d85f96c54f8f9577b4274d1d6,
     type: 3}
   gameBegun: 0
 --- !u!4 &1438963826
@@ -93201,6 +93212,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2709711412563784472, guid: 8be0252ae1b63464984422ad2a7408e9,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4e8c04141607d604c8422f339b96605b, type: 2}
     - target: {fileID: 5870739454608276991, guid: 8be0252ae1b63464984422ad2a7408e9,
         type: 3}
       propertyPath: m_Enabled
