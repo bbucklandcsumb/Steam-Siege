@@ -312,7 +312,7 @@ GameObject:
   - component: {fileID: 8704770282913013116}
   - component: {fileID: 3930545420967787201}
   - component: {fileID: 5942528769245806240}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Enemy_Shield
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -346,7 +346,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 134a5beeacd0ff143a199e64ab926a68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentShieldAmount: 0
   shieldMaterial: {fileID: 2100000, guid: 32a76832b79e84347ad9df08b12709c3, type: 2}
   defaultShieldGlow: 1
   impactShieldGlow: 3
@@ -506,7 +505,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa319044ff91ff5439c17882a1468bf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyType: 0
+  enemyType: 2
   centerPoint: {fileID: 567437656165506103}
   healthPoints: 4
   turnSpeed: 10

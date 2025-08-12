@@ -3,7 +3,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
-public enum EnemyType { Basic, Fast, None}
+public enum EnemyType { Basic, Fast, Heavy, None}
 
 public class Enemy : MonoBehaviour , IDamagable
 {
@@ -138,7 +138,7 @@ public class Enemy : MonoBehaviour , IDamagable
     public Vector3 CenterPoint() => centerPoint.position;
     public EnemyType GetEnemyType() => enemyType;
     
-    public void TakeDamage(int damage)
+    public virtual void TakeDamage(int damage)
     {
         healthPoints = healthPoints - damage;
 

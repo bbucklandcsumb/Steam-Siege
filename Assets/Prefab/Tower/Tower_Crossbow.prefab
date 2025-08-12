@@ -77,7 +77,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 8300000, guid: a72a651779015234fb34243a0e1b8b4a, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.503
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1428,6 +1428,8 @@ GameObject:
   - component: {fileID: 6954963240035988386}
   - component: {fileID: 8203541834892081742}
   - component: {fileID: 8033960105146601928}
+  - component: {fileID: 5992297359823745614}
+  - component: {fileID: 8364075955208168535}
   m_Layer: 0
   m_Name: Tower_Crossbow
   m_TagString: Untagged
@@ -1471,6 +1473,7 @@ MonoBehaviour:
   attackCooldown: 2.5
   enemyPriorityType: 2
   towerHead: {fileID: 6237702711920369569}
+  towerBody: {fileID: 0}
   gunPoint: {fileID: 1195392874440883424}
   rotationSpeed: 10
   attackRange: 4
@@ -1518,6 +1521,54 @@ MonoBehaviour:
   - {fileID: 3009616753925894065}
   - {fileID: 1132284065801808902}
   - {fileID: 6227057529049115792}
+--- !u!54 &5992297359823745614
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6592642984694189260}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &8364075955208168535
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6592642984694189260}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.1, y: 0.1, z: 0.1}
+  m_Center: {x: 0, y: 0.2, z: 0}
 --- !u!1 &7051655890610951843
 GameObject:
   m_ObjectHideFlags: 0
@@ -1563,7 +1614,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 8300000, guid: f93b36d91b76cc844972a7e123a949ce, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.503
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
