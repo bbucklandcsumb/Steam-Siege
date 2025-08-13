@@ -12,7 +12,12 @@ public class Enemy_Visuals : MonoBehaviour
     [SerializeField] private LayerMask whatIsGround;
     [SerializeField] private float verticalRotationSpeed;
 
-    private void Update()
+    protected virtual void Start()
+    {
+        
+    }
+
+    protected virtual void Update()
     {
         AlignWithSlope();
     }

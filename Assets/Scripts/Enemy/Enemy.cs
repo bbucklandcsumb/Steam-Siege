@@ -3,7 +3,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
-public enum EnemyType { Basic, Fast, Heavy, None}
+public enum EnemyType { Basic, Fast, Swarm, Heavy, None}
 
 public class Enemy : MonoBehaviour , IDamagable
 {

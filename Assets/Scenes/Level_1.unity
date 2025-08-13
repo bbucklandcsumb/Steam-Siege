@@ -19519,7 +19519,7 @@ MonoBehaviour:
   levelCenterPoint: {x: 9, y: 10, z: 8}
   maxDistanceFromCenter: 30
   movementSpeed: 120
-  mouseMovementSpeed: 5
+  mouseMovementSpeed: 120
   edgeMovementSpeed: 50
   edgeTreshold: 10
   focusPoint: {fileID: 195552685}
@@ -19527,7 +19527,7 @@ MonoBehaviour:
   rotationSpeed: 200
   minPitch: 5
   maxPitch: 85
-  zoomSpeed: 35
+  zoomSpeed: 100
   minZoom: 3
   maxZoom: 15
 --- !u!114 &330585549
@@ -48310,8 +48310,8 @@ MonoBehaviour:
   mouseSenseSlider: {fileID: 743360203}
   mouseSensText: {fileID: 927362356}
   mouseSenseParamter: mouseSens
-  minMouseSense: 1
-  maxMouseSense: 10
+  minMouseSense: 50
+  maxMouseSense: 200
 --- !u!224 &801528705
 RectTransform:
   m_ObjectHideFlags: 0
@@ -80957,8 +80957,8 @@ MonoBehaviour:
   mouseSenseSlider: {fileID: 1192384145}
   mouseSensText: {fileID: 1089588463}
   mouseSenseParamter: mouseSens
-  minMouseSense: 1
-  maxMouseSense: 10
+  minMouseSense: 50
+  maxMouseSense: 200
 --- !u!1 &1276405984
 GameObject:
   m_ObjectHideFlags: 0
@@ -92191,23 +92191,27 @@ MonoBehaviour:
     newPortals: []
     basicEnemy: 8
     fastEnemy: 8
-    heavyEnemy: 1
+    swarmEnemy: 0
+    heavyEnemy: 0
   - nextGrid: {fileID: 0}
     newPortals: []
     basicEnemy: 10
-    fastEnemy: 0
+    fastEnemy: 2
+    swarmEnemy: 0
     heavyEnemy: 0
   - nextGrid: {fileID: 1278275493}
     newPortals:
     - {fileID: 2118959112}
     basicEnemy: 10
     fastEnemy: 4
+    swarmEnemy: 0
     heavyEnemy: 0
   - nextGrid: {fileID: 0}
     newPortals:
     - {fileID: 0}
     basicEnemy: 12
     fastEnemy: 6
+    swarmEnemy: 0
     heavyEnemy: 0
   waveIndex: 0
   yOffset: 5
@@ -92215,6 +92219,8 @@ MonoBehaviour:
   basicEnemy: {fileID: 3382086203631219662, guid: ab8ad4c6387882e448b1ef4a7fba51e4,
     type: 3}
   fastEnemy: {fileID: 8796434388098386084, guid: 4314b52b2f9dc114a88a77a6c9c67b1c,
+    type: 3}
+  swarmEnemy: {fileID: 4498207156422536106, guid: d1d22087d3323ee48a58649b52bc519e,
     type: 3}
   heavyEnemy: {fileID: 8867225929771561394, guid: fdba430d85f96c54f8f9577b4274d1d6,
     type: 3}

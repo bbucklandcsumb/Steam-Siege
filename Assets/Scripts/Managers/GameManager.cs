@@ -94,7 +94,7 @@ public class GameManager : MonoBehaviour
 
     public bool HasEnoughCurrency(int price)
     {
-        if (price < currency)
+        if (price <= currency)
         {
             currency = currency - price;
             inGameUI.UpdateCurrencyUI(currency);
